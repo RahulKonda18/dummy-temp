@@ -41,8 +41,8 @@ const Quiz = ({ data, num }) => {
   };
 
   return (
-    <div className="flex items-center justify-center mt-40">
-      <div className="container flex flex-col w-2/4 border-teal-800 border p-12 gap-4 rounded-lg shadow-lg">
+    <div className="flex items-center justify-center md:mt-40 md:m-0 m-10">
+      <div className="container flex flex-col md:w-2/4 w-fit border-black border md:p-12 p-6 gap-4 rounded-lg shadow-lg">
         <h1 className="font-extrabold text-teal-800">Quiz App {num}</h1>
         <hr />
         {result ? (
@@ -56,7 +56,7 @@ const Quiz = ({ data, num }) => {
             <h1>
               {index + 1}. {question.question}
             </h1>
-            <ul className="flex flex-col px-4 gap-2 ">
+            <ul className="flex flex-col md:px-4 px-1 gap-2 ">
               <li
                 ref={option1}
                 className="border p-2  rounded-md"
