@@ -42,7 +42,7 @@ const Quiz = ({ data, num }) => {
 
   return (
     <div className="flex items-center justify-center mt-40">
-      <div className="container flex flex-col w-2/4 border-black border p-12 gap-4 rounded-lg shadow-lg">
+      <div className="container flex flex-col w-2/4 border-teal-800 border p-12 gap-4 rounded-lg shadow-lg">
         <h1 className="font-extrabold text-teal-800">Quiz App {num}</h1>
         <hr />
         {result ? (
