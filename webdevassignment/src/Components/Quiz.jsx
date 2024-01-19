@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useRef } from "react";
-import { data } from "../assests/data";
 
 const Quiz = ({ data, num }) => {
   const [index, setIndex] = useState(0);
@@ -7,8 +6,6 @@ const Quiz = ({ data, num }) => {
   const [lock, setLock] = useState(false);
   const [score, setScore] = useState(0);
   const [result, setResult] = useState(false);
-
-  useEffect(() => {}, [index]);
 
   let option1 = useRef(null);
   let option2 = useRef(null);
@@ -30,8 +27,8 @@ const Quiz = ({ data, num }) => {
 
   const next = () => {
     if (lock) {
-      setIndex((prevIndex) => prevIndex + 1);
-      setQuestion(data[index]); // Use a function to update the index
+      setIndex(index + 1);
+      setQuestion(data[index + 1]); // Use a function to update the index
       setLock(false);
       option_array.map((opt) => {
         opt.current.classList.remove("selected");
