@@ -1,11 +1,13 @@
 import React, { useState, useEffect, useRef } from "react";
+import { useNavigate } from "react-router-dom";
 
-const Quiz = ({ data, num }) => {
+const Quiz = ({ data, num, onQuizComplete }) => {
   const [index, setIndex] = useState(0);
   const [question, setQuestion] = useState(data[index]);
   const [lock, setLock] = useState(false);
   const [score, setScore] = useState(0);
   const [result, setResult] = useState(false);
+  const navigate = useNavigate();
 
   let option1 = useRef(null);
   let option2 = useRef(null);
@@ -19,26 +21,36 @@ const Quiz = ({ data, num }) => {
       e.target.classList.add("selected");
       setLock(true);
       if (ans === question.ans) {
-        setScore((score) => score + 1);
+        setScore((prevScore) => prevScore + 1);
       }
-      option_array;
     }
   };
 
   const next = () => {
     if (lock) {
-      setIndex(index + 1);
-      setQuestion(data[index + 1]); // Use a function to update the index
-      setLock(false);
-      option_array.map((opt) => {
-        opt.current.classList.remove("selected");
-        return null;
-      });
-      if (index == data.length - 1) {
+      setIndex((prevIndex) => prevIndex + 1);
+      if (index === data.length - 1) {
         setResult(true);
+        onQuizComplete(score);
+      } else {
+        setQuestion(data[index + 1]);
       }
+      setLock(false);
+      option_array.forEach((opt) => {
+        opt.current.classList.remove("selected");
+      });
     }
   };
+
+  const goToHome = () => {
+    navigate("/");
+  };
+
+  useEffect(() => {
+    if (result) {
+      // Optional: You can perform any cleanup or additional logic here
+    }
+  }, [result]);
 
   return (
     <div className="flex items-center justify-center md:mt-40 md:m-0 m-10">
@@ -50,6 +62,12 @@ const Quiz = ({ data, num }) => {
             <h2>
               You scored {score} out of {data.length}
             </h2>
+            <button
+              className="border-teal-800 border p-2 w-1/3 rounded-md hover:bg-teal-600 hover:border-white hover:text-white"
+              onClick={goToHome}
+            >
+              Go to Home
+            </button>
           </>
         ) : (
           <>
