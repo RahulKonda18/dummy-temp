@@ -7,7 +7,11 @@ import Leaderboard from "../Components/Leaderboard";
 const Home = () => {
   const [selectedStudent, setSelectedStudent] = useState(null);
   const [selectedQuiz, setSelectedQuiz] = useState(null);
-
+  const [results, setResults] = useState({
+    student1: 0,
+    student2: 0,
+    student3: 0,
+  });
   const [totalScore, setTotalScore] = useState({
     student1: 0,
     student2: 0,
@@ -21,6 +25,10 @@ const Home = () => {
 
   const handleQuizClick = (quizNumber) => {
     setSelectedQuiz(quizNumber);
+  };
+
+  const setSel = () => {
+    setSelectedQuiz(null);
   };
 
   const handleQuizComplete = (score) => {
@@ -81,25 +89,22 @@ const Home = () => {
       >
         {[1, 2, 3].map((quizNumber) => (
           <li key={quizNumber}>
-            <Link to={`/quiz${quizNumber}`}>
-              <button
-                className={`border border-teal-400 md:p-10 p-4 text-center rounded-md hover:bg-teal-400 hover:text-white text-lg ${
-                  isQuizEnabled(quizNumber)
-                    ? ""
-                    : "cursor-not-allowed opacity-50"
-                }`}
-                onClick={() => handleQuizClick(quizNumber)}
-                disabled={!isQuizEnabled(quizNumber)}
-              >
-                Quiz {quizNumber}
-              </button>
-            </Link>
+            <button
+              className={`border border-teal-400 md:p-10 p-4 text-center rounded-md hover:bg-teal-400 hover:text-white text-lg ${
+                isQuizEnabled(quizNumber) ? "" : "cursor-not-allowed opacity-50"
+              }`}
+              onClick={() => handleQuizClick(quizNumber)}
+              disabled={!isQuizEnabled(quizNumber)}
+            >
+              Quiz {quizNumber}
+            </button>
           </li>
         ))}
       </ul>
 
       {selectedQuiz !== null && (
         <Quiz
+          ss={setSel}
           data={data}
           num={selectedQuiz}
           onQuizComplete={handleQuizComplete}

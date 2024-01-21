@@ -1,13 +1,14 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 
-const Quiz = ({ data, num, onQuizComplete }) => {
+const Quiz = (props) => {
+  console.log(props);
+  const { data, num, onQuizComplete, ss } = props;
   const [index, setIndex] = useState(0);
   const [question, setQuestion] = useState(data[index]);
   const [lock, setLock] = useState(false);
   const [score, setScore] = useState(0);
   const [result, setResult] = useState(false);
-  const navigate = useNavigate();
 
   let option1 = useRef(null);
   let option2 = useRef(null);
@@ -31,6 +32,7 @@ const Quiz = ({ data, num, onQuizComplete }) => {
       setIndex((prevIndex) => prevIndex + 1);
       if (index === data.length - 1) {
         setResult(true);
+        console.log("quiz completed:", score);
         onQuizComplete(score);
       } else {
         setQuestion(data[index + 1]);
@@ -43,7 +45,8 @@ const Quiz = ({ data, num, onQuizComplete }) => {
   };
 
   const goToHome = () => {
-    navigate("/");
+    console.log("home clicked");
+    ss();
   };
 
   useEffect(() => {
@@ -58,7 +61,7 @@ const Quiz = ({ data, num, onQuizComplete }) => {
         <h1 className="font-extrabold text-teal-800">Quiz App {num}</h1>
         <hr />
         {result ? (
-          <>
+          <div>
             <h2>
               You scored {score} out of {data.length}
             </h2>
@@ -68,9 +71,9 @@ const Quiz = ({ data, num, onQuizComplete }) => {
             >
               Go to Home
             </button>
-          </>
+          </div>
         ) : (
-          <>
+          <div>
             <h1>
               {index + 1}. {question.question}
             </h1>
@@ -115,7 +118,7 @@ const Quiz = ({ data, num, onQuizComplete }) => {
                 {index + 1} of {data.length} Questions
               </div>
             </div>
-          </>
+          </div>
         )}
       </div>
     </div>
